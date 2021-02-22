@@ -17,6 +17,7 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -108,15 +109,23 @@ public class HomeFragment extends BaseRecyclerFragment<Channel>{
 
 	@Override
 	public void onCreateOptionsMenu(Menu menu, MenuInflater inflater){
-		menu.add("").setIcon(R.drawable.ic_baseline_person_24).setShowAsAction(MenuItem.SHOW_AS_ACTION_ALWAYS);
+		inflater.inflate(R.menu.menu_home, menu);
 	}
 
 	@Override
 	public boolean onOptionsItemSelected(MenuItem item){
-		Bundle args=new Bundle();
-		args.putInt("id", Integer.parseInt(ClubhouseSession.userID));
-		Nav.go(getActivity(), ProfileFragment.class, args);
-		return true;
+	    if (item.getItemId() == R.id.homeMenuProfile) {
+            Bundle args=new Bundle();
+            args.putInt("id", Integer.parseInt(ClubhouseSession.userID));
+            Nav.go(getActivity(), ProfileFragment.class, args);
+            return true;
+        } else if (item.getItemId() == R.id.homeMenuSearchPeople) {
+	    	Bundle args = new Bundle();
+	    	args.putInt(BaseSearchFragment.KEY_SEARCH_TYPE, BaseSearchFragment.SearchType.PEOPLE.ordinal());
+	    	Nav.go(getActivity(), SearchPeopleFragment.class, args);
+            return true;
+        }
+		return false;
 	}
 
 	private class ChannelAdapter extends RecyclerView.Adapter<ChannelViewHolder> implements ImageLoaderRecyclerAdapter{
