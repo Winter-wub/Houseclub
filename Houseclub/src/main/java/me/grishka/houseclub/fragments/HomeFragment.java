@@ -17,7 +17,6 @@ import android.view.ViewOutlineProvider;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import java.util.stream.Collectors;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
